@@ -1,0 +1,24 @@
+importar red
+, importar hora
+
+Crear objeto Wi-Fi en modo estación (cliente)
+wifi = network.WLAN(network.STA_IF)
+wifi.active(True)
+
+print("Inicializando WiFi...")
+
+while True:
+print("\nEscaneando redes WiFi...")
+redes = wifi.scan() # Devuelve una lista de tuplas con la información de las redes
+
+if len(redes) == 0:
+print("No se encontraron redes.")
+else:
+print(f"\nSe encontraron {len(redes)} redes:\n")
+for i, red in enumerate(redes):
+ssid = red[0].decode('utf-8') # Nombre de la red
+rssi = red[3] # Intensidad de señal
+de seguridad = red[4] # Tipo de seguridad
+tipo = "Abierta" if seguridad == 0 else "Seguridad"
+
+print(f"{i+1}. SSID: {ssid}  |  Señal: {rssi} dBm  |  Seguridad: {tipo}")
