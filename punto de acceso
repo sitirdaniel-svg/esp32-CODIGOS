@@ -1,0 +1,36 @@
+importar dht
+importar máquina
+importar red
+importar tiempo
+
+Nombre de la red y contraseña para el Punto de Acceso
+SSID = "TABOADARIKO"
+CONTRASEÑA = "123456789"
+
+Configuración del punto de acceso
+ap = network.WLAN(network.AP_IF)
+ap.active(True)
+ap.config(essid=SSID, contraseña=CONTRASEÑA)
+
+ip_address = ap.ifconfig()[0]
+print("ESP32 configurado como Access Point")
+print("Dirección IP del Access Point:", ip_address)
+
+Señal del sensor en el pin 4
+dht_sensor = dht.DHT11(machine.Pin(23))
+
+mientras sea verdadero:
+intenta:
+
+Lectura de temperatura y humedad
+dht_sensor.measure()
+temperature = dht_sensor.temperature()
+humidity = dht_sensor.humidity()
+
+print("Temperatura: {}°C, Humedad: {}%".format(temperatura, humedad))
+
+time.sleep(2)
+except OSError as e:
+print("Error al leer el sensor:", e)
+continue
+
