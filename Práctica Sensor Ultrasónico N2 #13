@@ -1,0 +1,67 @@
+#include <WiFi.h>
+#include <ThingerESP32.h>
+
+// Thinger.io
+#define NOMBRE DE USUARIO "JosePerez"
+#define ID_DEL_DISPOSITIVO "esp32_led"
+#define CREDENCIAL_DEL_DISPOSITIVO "123456789"
+
+// WiFi
+#define SSID "iPhone de Jose"
+#define SSID_PASSWORD "PerezM123456"
+
+ThingerESP32 thing(NOMBRE DE USUARIO, ID_DEL_DISPOSITIVO, CREDENCIAL_DEL_DISPOSITIVO);
+
+constante int echoPin = 26;
+constante int trigPin = 25;
+
+distancia flotante = 0;
+
+vacío configuración() {
+Serial.begin(9600);
+
+pinMode(echoPin, ENTRADA);
+pinMode(trigPin, SALIDA);
+
+Serial.println("Sensor ultrasónico:");
+
+// Conectar WiFi a Thinger
+thing.add_wifi(SSID, SSID_PASSWORD);
+
+// Recurso en Thinger.io
+thing["distancia"] >> outputValue(distance);
+}
+
+void loop() {
+distancia = readDistance();
+
+Serial.print(distancia);
+Serial.println("cm");
+
+cosa.handle(); // Mantiene conexión y envía datos
+delay(400);
+}
+
+// Función para medir distancia
+float readDistance() {
+digitalWrite(trigPin, LOW);
+retrasoMicrosegundos(2);
+
+digitalWrite(trigPin, ALTO);
+delayMicroseconds(10);
+
+digitalWrite(trigPin, BAJO);
+
+float d = pulseIn(echoPin, ALTO) / 58.00;
+return d;
+}
+
+📍 CÓDIGO DEL CARRO
+
+🚗 Sensor de proximidad
+🚗
+0 cm
+
+{{value}}
+
+<script> setInterval(() => { let d = parseFloat(document.getElementById("data").innerText); if (isNaN(d)) return; // rango 0–200 cm d = Math.max(0, Math.min(d, 200)); document.getElementById("txt").innerText = d.toFixed(1) + " cm"; // mapear la distancia a la posición let pos = (d / 200) * 90; // % document.getElementById("car").style.left = pos + "%"; }, 500); </script> <style> #wrap{ background:#020617; color:white; padding:15px; border-radius:16px; text-align:center; font-family:Arial; } #road{ position:relative; ancho:100%; alto:60px; fondo:#1e293b; radio del borde:30px; margen:15px 0; } #car{ posición:absoluta; superior:10px; izquierda:0%; tamaño de fuente:32px; transición:izquierda 0.4s facilidad; } #txt{ tamaño de fuente:22px; } </style>
