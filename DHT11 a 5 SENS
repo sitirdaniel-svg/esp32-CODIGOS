@@ -1,0 +1,40 @@
+PARA_sensor2.py
+importar red
+importar socket
+importar tiempo
+importar dht
+desde la máquina importar Pin
+importar gc
+
+gc.collect()
+
+wlan = red.WLAN(red.STA_IF)
+wlan.active(False)
+tiempo.sleep(0.1)
+wlan.active(True)
+wlan.connect("PROFÉGALE", "12345678")
+
+print("Conectando como sensor2...")
+while not wlan.isconnected():
+time.sleep(0.5)
+print("sensor2 conectado. IP:", wlan.ifconfig()[0])
+
+Pueden usar otro pin si lo desean, ej. GPIO4
+d = dht.DHT11(Pin(14)) # o Pin(4)
+
+mientras sea verdadero:
+intente:
+d.measure()
+temp = d.temperature()
+hum = d.humidity()
+payload = f"sensor2:{temp},{hum}"
+
+s = socket.socket()
+s.connect(("192.168.4.1", 8888))
+s.send(payload.encode())
+s.close()
+print(f"sensor2 enviado: {temp}°C, {hum}%")
+excepto Excepción como e:
+print("error del sensor2:", e)
+
+time.sleep(5)
