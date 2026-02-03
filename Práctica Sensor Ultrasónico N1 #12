@@ -1,0 +1,57 @@
+#include <WiFi.h>
+#include <ThingerESP32.h>
+
+// Thinger.io
+#define NOMBRE DE USUARIO "JosePerez"
+#define ID_DEL_DISPOSITIVO "esp32_led"
+#define CREDENCIAL_DEL_DISPOSITIVO "123456789"
+
+// WiFi
+#define SSID "iPhone de Jose"
+#define SSID_PASSWORD "PerezM123456"
+
+ThingerESP32 thing(NOMBRE DE USUARIO, ID_DEL_DISPOSITIVO, CREDENCIAL_DEL_DISPOSITIVO);
+
+constante int echoPin = 26;
+constante int trigPin = 25;
+
+distancia flotante = 0;
+
+vacío configuración() {
+Serial.begin(9600);
+
+pinMode(echoPin, ENTRADA);
+pinMode(trigPin, SALIDA);
+
+Serial.println("Sensor ultrasónico:");
+
+// Conectar WiFi a Thinger
+thing.add_wifi(SSID, SSID_PASSWORD);
+
+// Recurso en Thinger.io
+thing["distancia"] >> outputValue(distance);
+}
+
+void loop() {
+distancia = readDistance();
+
+Serial.print(distancia);
+Serial.println("cm");
+
+cosa.handle(); // Mantiene conexión y envía datos
+delay(400);
+}
+
+// Función para medir distancia
+float readDistance() {
+digitalWrite(trigPin, LOW);
+retrasoMicrosegundos(2);
+
+digitalWrite(trigPin, ALTO);
+delayMicroseconds(10);
+
+digitalWrite(trigPin, BAJO);
+
+float d = pulseIn(echoPin, ALTO) / 58.00;
+return d;
+}
