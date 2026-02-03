@@ -1,0 +1,33 @@
+#include "WiFi.h"
+#include <ThingerESP32.h> //Librería de la plataforma thinger.io
+// Parámetros de la conexión con thinger.io
+#define usuario "JosePerez"
+#define device_Id "Control_Leds"
+#define device_credentials "quYItCTrtiWNRIXe"
+
+ThingerESP32 cosa(usuario, dispositivo_Id, dispositivo_credenciales);
+
+// Parámetros de conexión WiFi
+const char WiFi_ssid[] = "CELERITY_PAUL"; //Nombre de red
+const char WiFi_password[] = "roy@lrumbl3"; //Clave de rojo
+
+// Configurar LEDS
+int led1 = 23;
+intled2 = 22;
+configuración vacía()
+{
+pinMode(led1, SALIDA);
+pinMode(led2, SALIDA);
+// Inicialización de la WiFi para comunicarse con la API
+thing.add_wifi(WiFi_ssid, WiFi_password);
+
+cosa["Led1"] << digitalPin(led1);
+
+cosa["Led2"] << digitalPin(led2);
+
+}
+
+void loop()
+{
+thing.handle();
+}
