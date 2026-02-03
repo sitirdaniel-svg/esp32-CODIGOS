@@ -1,0 +1,53 @@
+importar red
+desde la máquina importar PIN
+importar espnow
+importar utime
+
+Una interfaz WLAN debe estar activa para enviar()/recibir()
+sta = network.WLAN(network.STA_IF) # O network.AP_IF
+sta.active(True)
+sta.disconnect() # Para ESP8266
+
+Inicializar ESP-NOW
+esp = espnow.ESPNow()
+esp.active(True)
+
+Define la dirección MAC del receptor ESP32 (ESP32 B)
+peer = b'x!\x84\xc68\xb0'
+esp.add_peer(peer)
+
+Crea una función para enviar datos cuando se presiona un botón (opcional)
+button_pin = Pin(23, Pin.IN, Pin.PULL_UP)
+
+Inicializar variables para eliminar rebotes
+last_button_state = 1 # Suponiendo que el botón no se presiona inicialmente
+debounce_delay = 50 # Ajuste este valor a sus necesidades (milisegundos)
+
+mientras sea verdadero:
+
+Leer el estado actual del botón
+current_button_state = button_pin.value()
+
+Comprueba si el estado del botón ha cambiado
+si current_button_state != last_button_state:
+
+Espere un breve tiempo para que el botón rebote.
+utime.sleep_ms(debounce_delay)
+
+Lea el estado del botón de nuevo para asegurarse de que sea estable
+current_button_state = button_pin.value()
+
+Si el estado del botón sigue siendo diferente, es una pulsación válida
+si el estado_del_botón_actual no es igual al estado_del_botón_actual:
+si el estado_del_botón_actual == 0:
+mensaje = "ledOn"
+print(f"Enviando comando: {mensaje}")
+esp.send(peer, mensaje)
+de lo contrario:
+mensaje = "ledOff"
+print(f"Enviando comando: {mensaje}")
+esp.send(peer, mensaje)
+
+Actualizar el último estado del botón
+estado_del_último_botón = estado_del_botón_actual
+
