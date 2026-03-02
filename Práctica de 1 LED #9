@@ -2,7 +2,7 @@
 #include <ThingerESP32.h>
 
 // ========= THINGER.IO =========
-#define NOMBRE DE USUARIO "José Pérez"
+#define NOMBRE DE USUARIO "Danielpucha18"
 #define ID_DEL_DISPOSITIVO "esp32_led"
 #define CREDENCIAL_DEL_DISPOSITIVO "123456"
 
