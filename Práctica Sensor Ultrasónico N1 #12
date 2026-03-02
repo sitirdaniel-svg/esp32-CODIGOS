@@ -2,13 +2,13 @@
 #include <ThingerESP32.h>
 
 // Thinger.io
-#define NOMBRE DE USUARIO "JosePerez"
+#define NOMBRE DE USUARIO "Danielpucha18"
 #define ID_DEL_DISPOSITIVO "esp32_led"
 #define CREDENCIAL_DEL_DISPOSITIVO "123456789"
 
 // WiFi
-#define SSID "iPhone de Jose"
-#define SSID_PASSWORD "PerezM123456"
+#define SSID "iPhone de daniel"
+#define SSID_PASSWORD "123456"
 
 ThingerESP32 thing(NOMBRE DE USUARIO, ID_DEL_DISPOSITIVO, CREDENCIAL_DEL_DISPOSITIVO);
 
