@@ -1,7 +1,7 @@
 #include "WiFi.h"
 #include <ThingerESP32.h> //Librería de la plataforma thinger.io
 // Parámetros de la conexión con thinger.io
-#define usuario "JosePerez"
+#define usuario "Danielpucha18"
 #define device_Id "Control_Leds"
 #define device_credentials "quYItCTrtiWNRIXe"
 
