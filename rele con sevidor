@@ -1,0 +1,99 @@
+#include <WiFi.h>
+
+const char* ssid = "Danielpucha18";
+const char* password = "987654321";
+
+WiFiServer server(80);
+
+const int rele1 = 26;
+const int rele2 = 27;
+
+IPAddress local_ip(192,168,10,1);
+IPAddress gateway(192,168,10,1);
+IPAddress subnet(255,255,255,0);
+
+void setup() {
+Serial.begin(115200);
+
+pinMode(rele1, OUTPUT);
+pinMode(rele2, OUTPUT);
+
+digitalWrite(rele1, HIGH);
+digitalWrite(rele2, HIGH);
+
+WiFi.mode(WIFI_AP);
+WiFi.softAPConfig(local_ip, gateway, subnet);
+WiFi.softAP(ssid, password);
+
+Serial.println("IP:");
+Serial.println(WiFi.softAPIP());
+
+server.begin();
+}
+
+void loop() {
+
+WiFiClient client = server.available();
+if (!client) return;
+
+String request = client.readStringUntil('\r');
+client.flush();
+
+// 🔥 Control relés
+if (request.indexOf("/f1on") != -1) digitalWrite(rele1, LOW);
+if (request.indexOf("/f1off") != -1) digitalWrite(rele1, HIGH);
+if (request.indexOf("/f2on") != -1) digitalWrite(rele2, LOW);
+if (request.indexOf("/f2off") != -1) digitalWrite(rele2, HIGH);
+
+client.println("HTTP/1.1 200 OK");
+client.println("Content-type:text/html");
+client.println("Connection: close");
+client.println();
+
+client.println("");
+client.println("");
+client.println("");
+
+client.println("<style>");
+client.println("body{margin:0;font-family:Arial;background:linear-gradient(120deg,#2193b0,#6dd5ed);text-align:center;color:white;}");
+client.println(".container{margin-top:50px;}");
+client.println(".btn{display:inline-block;margin:15px;padding:25px 40px;font-size:20px;border:none;border-radius:50px;color:white;text-decoration:none;}");
+client.println(".on{background:#00c853;}");
+client.println(".off{background:#d50000;}");
+client.println(".card{background:rgba(255,255,255,0.2);padding:30px;margin:20px auto;width:320px;border-radius:20px;backdrop-filter:blur(5px);}");
+client.println("</style>");
+
+client.println("
+
+");
+client.println("
+Daniel Proyecto
+");
+client.println("
+
+");
+client.println("
+Foco 1
+
+");
+client.println("ENCENDER");
+client.println("APAGAR");
+client.println("
+");
+client.println("
+
+");
+client.println("
+Foco 2
+
+");
+client.println("ENCENDER");
+client.println("APAGAR");
+client.println("
+");
+client.println("
+
+");
+client.println("");
+client.stop();
+}
