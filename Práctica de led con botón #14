@@ -1,0 +1,37 @@
+#include <WiFi.h>
+#include <ThingerESP32.h>
+
+// ========= THINGER.IO =========
+#define USERNAME "Jose Perez"
+#define DEVICE_ID "esp32_led"
+#define DEVICE_CREDENTIAL "123456"
+
+// ========= WIFI =========
+#define SSID "MECATRONICA_3ABC_5G"
+#define SSID_PASSWORD "MEC2025@." // ← PON TU CLAVE REAL
+
+// ========= LED =========
+#define LED_PIN 2 // LED interno del ESP32
+
+// ========= THINGER =========
+ThingerESP32 thing(USERNAME, DEVICE_ID, DEVICE_CREDENTIAL);
+
+void setup() {
+Serial.begin(115200);
+
+pinMode(LED_PIN, OUTPUT);
+digitalWrite(LED_PIN, LOW); // LED apagado
+
+// Conectar a WiFi
+thing.add_wifi(SSID, SSID_PASSWORD);
+
+// Recurso LED (Switch en Thinger.io)
+thing["led"] << digitalPin(LED_PIN);
+
+Serial.println("ESP32 iniciado. Conectando a Thinger.io...");
+}
+
+void loop() {
+thing.handle();
+}
+
