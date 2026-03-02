@@ -5,11 +5,11 @@
 #include <Adafruit_Sensor.h>
 
 // ---------- WIFI ----------
-const char* ssid = "iPhone de Jose";
+const char* ssid = "iPhone de daniel";
 const char* password = "matuteP12345";
 
 // ---------- THINGER.IO ----------
-#define NOMBRE DE USUARIO "JosePerez"
+#define NOMBRE DE USUARIO "danielpucha18"
 #define ID_DISPOSITIVO "Humedad_esp"
 #define CREDENCIAL_DISPOSITIVO "123456789"
 const char* mqtt_server = "backend.thinger.io";
